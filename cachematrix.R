@@ -1,7 +1,8 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Provides functions to cache the inverse of a square invertable
+## matrix. 
 
-## Write a short comment describing this function
+## makeCacheMatrix accepts a matrix as input
+## creates references to it and it's inverse
 
 makeCacheMatrix <- function(x = matrix()) {
         m <- NULL
@@ -10,25 +11,25 @@ makeCacheMatrix <- function(x = matrix()) {
                 m <<- NULL
         }
         get <- function() x
-        setmatrix <- function(solve) m <<- matrix
-        getmatrix <- function() m
+        setinverse <- function(solve) m <<- solve
+        getinverse <- function() m
         list(set = set, get = get,
-             setmatrix = setmatrix,
-             getmatrix = getmatrix)
+             setinverse = setinverse,
+             getinverse = getinverse)
 }
 
-## Write a short comment describing this function
-
+## cacheSolve returns a matrix that is the inverse of 'x'
+## from cache if available
+        
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-        m <- x$getmatrix()
+        m <- x$getinverse()
         if(!is.null(m)) {
                 message("getting cached data")
                 return(m)
         }
         data <- x$get()
         m <- solve(data, ...)
-        x$setmatrix(m)
+        x$setinverse(m)
         m
 
 }
